@@ -3,7 +3,7 @@ import { cartManager } from "../index.js";
 
 const cartsRouter = Router();
 
-//CREAR UN CARRITO NUEVO -- http://localhost:8080/api/carts/
+//CREAR UN CARRITO NUEVO 
 
 cartsRouter.post('/', async (req, res) => {
     try {
