@@ -1,20 +1,23 @@
-const express = require('express');
-const path = require('path');
-const productsRouter = require('./src/routes/products.router');
-const cartsRouter = require('./src/routes/carts.router');
+import express from 'express';
+import { ProductManager } from './productManager.js';
+import { CartManager } from './cartManager.js';
+import {productsRouter} from './routes/products.router.js';
+import { cartsRouter } from './routes/carts.router.js'
+
+const PORT = 8080; 
+
 const app = express();
-const PORT = 8080;
 
-// Middleware para parsear JSON
-app.use(express.json());
+export const productManager = new ProductManager;
+export const cartManager = new CartManager;
 
-// Middleware para parsear datos codificados en URL
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json())
+app.use('/api/products', productsRouter) // http://localhost:PORT/api/products
+app.use('/api/carts', cartsRouter)
 
-// Definición de las rutas
-app.use('/', productsRouter);
-app.use('/', cartsRouter);
+app.listen(PORT, (req, res) => {
+    console.log(`Servidor escuchando en el puerto ${PORT}`);
+})
 
-app.listen(PORT, () => {
-    console.log(`Server listening on port ${PORT}`);
-});
+
+
